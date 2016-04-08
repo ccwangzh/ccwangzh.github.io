@@ -7,7 +7,7 @@ title: "less life | grep cc"
 description: "记录生活感悟、iOS开发、Web开发、Mac系统、Linux系统等相关内容 - ccwangzh的个人博客"
 
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://grep.cc" # the base hostname & protocol for your site
+url: "http://www.grep.cc" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
