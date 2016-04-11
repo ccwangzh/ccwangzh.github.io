@@ -1,5 +1,6 @@
 ---
 layout: post
+author: cc
 title:  "从pelican迁移到jekyll"
 date:   2016-04-08 10:02:05
 categories: jekyll pelican
