@@ -34,21 +34,36 @@
     <script type="text/javascript">
     Vue.component('app-item', {
       props: ['app'],
-      template: '<div class="row" style="height: 116px; border-bottom:1px solid lightgray; "><div class="col-xs-3"><img style="height: 72px; width: 72px; margin-top: 13px;margin-left: 0px;" src="./apps/jrapp/icon.png"><p style="font-size: 8pt;color: black;margin-top: 4px; width: 72px; text-align: center;">{{ app.name }}</p></img></div><div class="col-xs-6"></div><div class="col-xs-3" style="height: 100%;"><a style="margin-top: 20px; border-color: #0076ff; color: #0076ff;" href="itms-services://?action=download-manifest&url=https://ccwangzh.github.io/apps/jrapp/info.plist" class="btn btn-default btn-xs" role="button">苹果下载</a><a style="margin-top: 20px; border-color: #0076ff; color: #0076ff;" href="#" class="btn btn-default btn-xs" role="button">安卓下载</a></div></div>'
+      template: '<div class="row" style="height: 116px; border-bottom:1px solid lightgray; "> \
+      <div class="col-xs-3"> \
+        <img style="height: 72px; width: 72px; margin-top: 13px;margin-left: 0px;" src="./apps/jrapp/icon.png"> \
+          <p style="font-size: 8pt;color: black;margin-top: 4px; width: 72px; text-align: center;">{{ app.name }}</p> \
+        </img> \
+      </div> \
+      <div class="col-xs-6"> \
+      </div> \
+      <div class="col-xs-3" style="height: 100%;"> \
+        <a style="margin-top: 20px; border-color: #0076ff; color: #0076ff;" href="itms-services://?action=download-manifest&url=https://ccwangzh.github.io/apps/jrapp/info.plist" class="btn btn-default btn-xs" role="button">苹果下载</a> \
+        <a style="margin-top: 20px; border-color: #0076ff; color: #0076ff;" href="#" class="btn btn-default btn-xs" role="button">安卓下载</a> \
+      </div> \
+    </div>'
     })
     var app = new Vue({
       el: '#app',
       data: {
         appList: [
-          { name: '蔬菜' },
-          { name: '奶酪' },
-          { name: '随便' }
         ]
+      },
+      methods: {
+        addApp: function(appInfo) {
+          this.appList.push(appInfo);
+        },
       }
     })
 
-    function appAdd(info) {};
-
+    function appAdd(appInfo) {
+      app.addApp(appInfo);
+    };
     </script>
     <script src="./apps/jrapp/detail.js"></script>
   </body>
