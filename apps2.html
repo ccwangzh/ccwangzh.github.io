@@ -37,16 +37,17 @@
       template: '<div class="row" style="height: 116px; border-bottom:1px solid lightgray; "> \
       <div class="col-xs-3"> \
         <img style="height: 72px; width: 72px; margin-top: 13px;margin-left: 0px;" src="./apps/jrapp/icon.png"> \
-          <p style="font-size: 8pt;color: black;margin-top: 4px; width: 72px; text-align: center;">{{ app.name }}</p> \
+          <p style="font-size: 10pt;color: black;margin-top: 4px; width: 72px; text-align: center;">{{ app.name }}</p> \
         </img> \
       </div> \
       <div class="col-xs-6" style="padding-top:20px;"> \
-        <p>iOS版本：v{{ app.ios.version }}</p> \
-        <p>安卓版本：v{{ app.android.version }}</p> \
+        <p v-if="app.ios != null" style="color:#888888;">苹果版：v{{ app.ios.version }} ({{ app.ios.date }})</p> \
+        <p v-if="app.android != null" style="color:#888888;">安卓版：v{{ app.android.version }} ({{ app.android.date }})</p> \
       </div> \
-      <div class="col-xs-3" style="height: 100%;"> \
-        <a style="margin-top: 20px; border-color: #0076ff; color: #0076ff;" href="itms-services://?action=download-manifest&url=https://ccwangzh.github.io/apps/jrapp/info.plist" class="btn btn-default btn-xs" role="button">苹果下载</a> \
-        <a style="margin-top: 20px; border-color: #0076ff; color: #0076ff;" href="#" class="btn btn-default btn-xs" role="button">安卓下载</a> \
+      <div class="col-xs-3" style="height: 100%; padding-top:10px;"> \
+        <a v-if="app.ios != null" style="margin-top: 10px; border-color: #0076ff; color: #0076ff;" \
+          href="itms-services://?action=download-manifest&url=https://ccwangzh.github.io/apps/jrapp/info.plist" class="btn btn-default btn-xs" role="button">苹果下载</a> \
+        <a v-if="app.android != null" style="margin-top: 10px; border-color: #0076ff; color: #0076ff;" href="#" class="btn btn-default btn-xs" role="button">安卓下载</a> \
       </div> \
     </div>'
     })
@@ -57,44 +58,43 @@
         ]
       },
       methods: {
-        iOSAdd: function(appInfo) {
+        getAppInfo: function(appId) {
           appIndex = -1;
           for (var i = 0; i < this.appList.length; i ++) {
-            if (this.appList[i].id == appInfo.id) {
+            if (this.appList[i].id == appId) {
               appIndex = i;
               break;
             }
           }
+          appInfo = null;
           if (appIndex >= 0) {
-            this.appList[appIndex].ios = appInfo;
+            appInfo = this.appList[appIndex];
           } else {
-            newApp = {id:appInfo.id,name:appInfo.name, android:null, ios:appInfo};
-            this.appList.push(newApp);
+            appInfo = {id:appId, ios:null, android:null};
+            this.appList.push(appInfo);
           }
+          return appInfo;
         },
-        androidAdd: function(appInfo) {;
-          appIndex = -1;
-          for (var i = 0; i < this.appList.length; i ++) {
-            if (this.appList[i].id == appInfo.id) {
-              appIndex = i;
-              break;
-            }
-          }
-          if (appIndex >= 0) {
-            this.appList[appIndex].android = appInfo;
-          } else {
-            newApp = {id:appInfo.id,name:appInfo.name, android:appInfo, ios:null};
-            this.appList.push(newApp);
-          }
+        iOSAdd: function(iosInfo) {
+          appId = iosInfo.id;
+          appInfo = this.getAppInfo(appId);
+          appInfo.ios = iosInfo;
+          appInfo.name = iosInfo.name;
+        },
+        androidAdd: function(androidInfo) {;
+          appId = androidInfo.id;
+          appInfo = this.getAppInfo(appId);
+          appInfo.android = androidInfo;
+          appInfo.name = androidInfo.name;
         }
       }
     })
 
-    function iOSAdd(appInfo) {
+    function iOS(appInfo) {
       app.iOSAdd(appInfo);
     };
 
-    function androidAdd(appInfo) {
+    function android(appInfo) {
       app.androidAdd(appInfo);
     };
     </script>
