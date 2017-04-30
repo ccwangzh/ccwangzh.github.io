@@ -8,13 +8,13 @@
     <title>唯品金融内测应用</title>
 
     <!-- Bootstrap -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
   <body>
@@ -26,11 +26,11 @@
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vuejs -->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="//cdn.bootcss.com/vue/2.3.0/vue.js"></script>
     <script type="text/javascript">
     Vue.component('app-item', {
       props: ['app'],
@@ -55,16 +55,48 @@
         ]
       },
       methods: {
-        addApp: function(appInfo) {
-          this.appList.push(appInfo);
+        iOSAdd: function(appInfo) {
+          appIndex = -1;
+          for (var i = 0; i < this.appList.length; i ++) {
+            if (this.appList[i].id == appInfo.id) {
+              appIndex = i;
+              break;
+            }
+          }
+          if (appIndex >= 0) {
+            this.appList[appIndex].ios = appInfo;
+          } else {
+            newApp = {id:appInfo.id,name:appInfo.name, android:null, ios:appInfo};
+            this.appList.push(newApp);
+          }
         },
+        androidAdd: function(appInfo) {;
+          appIndex = -1;
+          for (var i = 0; i < this.appList.length; i ++) {
+            if (this.appList[i].id == appInfo.id) {
+              appIndex = i;
+              break;
+            }
+          }
+          if (appIndex >= 0) {
+            this.appList[appIndex].android = appInfo;
+          } else {
+            newApp = {id:appInfo.id,name:appInfo.name, android:appInfo, ios:null};
+            this.appList.push(newApp);
+          }
+        }
       }
     })
 
-    function appAdd(appInfo) {
-      app.addApp(appInfo);
+    function iOSAdd(appInfo) {
+      app.iOSAdd(appInfo);
+    };
+
+    function androidAdd(appInfo) {
+      app.androidAdd(appInfo);
     };
     </script>
-    <script src="./apps/jrapp/detail.js"></script>
+    <script src="./apps/jrapp/android.js"></script>
+    <script src="./apps/jrapp/ios.js"></script>
   </body>
 </html>
