@@ -40,7 +40,9 @@
           <p style="font-size: 8pt;color: black;margin-top: 4px; width: 72px; text-align: center;">{{ app.name }}</p> \
         </img> \
       </div> \
-      <div class="col-xs-6"> \
+      <div class="col-xs-6" style="padding-top:20px;"> \
+        <p>iOS版本：v{{ app.ios.version }}</p> \
+        <p>安卓版本：v{{ app.android.version }}</p> \
       </div> \
       <div class="col-xs-3" style="height: 100%;"> \
         <a style="margin-top: 20px; border-color: #0076ff; color: #0076ff;" href="itms-services://?action=download-manifest&url=https://ccwangzh.github.io/apps/jrapp/info.plist" class="btn btn-default btn-xs" role="button">苹果下载</a> \
