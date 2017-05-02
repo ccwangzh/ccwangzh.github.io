@@ -36,7 +36,7 @@
       props: ['app'],
       template: '<div class="row" style="height: 116px; border-bottom:1px solid lightgray; "> \
       <div class="col-xs-3"> \
-        <img style="height: 72px; width: 72px; margin-top: 13px;margin-left: 0px;" src="./apps/jrapp/icon.png"> \
+        <img style="height: 72px; width: 72px; margin-top: 13px;margin-left: 0px;" v-bind:src="app.icon"> \
           <p style="font-size: 10pt;color: black;margin-top: 4px; width: 72px; text-align: center;">{{ app.name }}</p> \
         </img> \
       </div> \
@@ -46,8 +46,9 @@
       </div> \
       <div class="col-xs-3" style="height: 100%; padding-top:10px;"> \
         <a v-if="app.ios != null" style="margin-top: 10px; border-color: #0076ff; color: #0076ff;" \
-          href="itms-services://?action=download-manifest&url=https://ccwangzh.github.io/apps/jrapp/info.plist" class="btn btn-default btn-xs" role="button">苹果下载</a> \
-        <a v-if="app.android != null" style="margin-top: 10px; border-color: #0076ff; color: #0076ff;" href="#" class="btn btn-default btn-xs" role="button">安卓下载</a> \
+          v-bind:href="app.ios.url" class="btn btn-default btn-xs" role="button">苹果下载</a> \
+        <a v-if="app.android != null" style="margin-top: 10px; border-color: #0076ff; color: #0076ff;" \
+          v-bind:href="app.android.url" class="btn btn-default btn-xs" role="button">安卓下载</a> \
       </div> \
     </div>'
     })
@@ -58,6 +59,15 @@
         ]
       },
       methods: {
+        getIosUrl: function(appId) {
+          return "itms-services://?action=download-manifest&url=https://ccwangzh.github.io/apps/dist/" + appId + "/info.plist";
+        },
+        getAndroidUrl: function(appId) {
+          return "#";
+        },
+        getAppIcon: function(appId) {
+          return "./dist/" + appId + "/icon.png";
+        },
         getAppInfo: function(appId) {
           appIndex = -1;
           for (var i = 0; i < this.appList.length; i ++) {
@@ -78,12 +88,16 @@
         iOSAdd: function(iosInfo) {
           appId = iosInfo.id;
           appInfo = this.getAppInfo(appId);
+          appInfo.icon = this.getAppIcon(appId);
+          iosInfo.url = this.getIosUrl(appId);
           appInfo.ios = iosInfo;
           appInfo.name = iosInfo.name;
         },
         androidAdd: function(androidInfo) {;
           appId = androidInfo.id;
           appInfo = this.getAppInfo(appId);
+          appInfo.icon = this.getAppIcon(appId);
+          androidInfo.url =  this.getAndroidUrl(appId);
           appInfo.android = androidInfo;
           appInfo.name = androidInfo.name;
         }
@@ -98,7 +112,7 @@
       app.androidAdd(appInfo);
     };
     </script>
-    <script src="./apps/jrapp/android.js"></script>
-    <script src="./apps/jrapp/ios.js"></script>
+    <script src="./dist/jrapp/android.js"></script>
+    <script src="./dist/jrapp/ios.js"></script>
   </body>
 </html>
