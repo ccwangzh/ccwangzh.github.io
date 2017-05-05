@@ -35,20 +35,20 @@
     Vue.component('app-item', {
       props: ['app'],
       template: '<div class="row" style="height: 116px; border-bottom:1px solid lightgray; "> \
-      <div class="col-xs-3"> \
-        <img style="height: 72px; width: 72px; margin-top: 13px;margin-left: 0px;" v-bind:src="app.icon"> \
-          <p style="font-size: 10pt;color: black;margin-top: 4px; width: 72px; text-align: center;">{{ app.name }}</p> \
+      <div style="float: left; height: 72px; width: 72px;margin:12px 0px 0px 12px;"> \
+        <img style="" v-bind:src="app.icon"> \
+          <p style="width:72px; font-size: 10pt;color: black;margin-top: 4px; text-align: center;">{{ app.name }}</p> \
         </img> \
       </div> \
-      <div class="col-xs-6" style="padding-top:20px;"> \
+      <div style="float: left; margin:26px 0px 0px 12px;height:100%;"> \
         <p v-if="app.ios != null" style="color:#888888;">苹果版：v{{ app.ios.version }} ({{ app.ios.date }})</p> \
         <p v-if="app.android != null" style="color:#888888;">安卓版：v{{ app.android.version }} ({{ app.android.date }})</p> \
       </div> \
-      <div class="col-xs-3" style="height: 100%; padding-top:10px;"> \
-        <a v-if="app.ios != null" style="margin-top: 10px; border-color: #0076ff; color: #0076ff;" \
-          v-bind:href="app.ios.url" class="btn btn-default btn-xs" role="button">苹果下载</a> \
-        <a v-if="app.android != null" style="margin-top: 10px; border-color: #0076ff; color: #0076ff;" \
-          v-bind:href="app.android.url" class="btn btn-default btn-xs" role="button">安卓下载</a> \
+      <div style="float: right; margin:26px 12px 0px 12px;;"> \
+        <p><a v-if="app.ios != null" style="border-color: #0076ff; color: #0076ff;" \
+          v-bind:href="app.ios.url" class="btn btn-default btn-xs" role="button">苹果下载</a></p> \
+        <p><a v-if="app.android != null" style="border-color: #0076ff; color: #0076ff;" \
+          v-bind:href="app.android.url" class="btn btn-default btn-xs" role="button">安卓下载</a></p> \
       </div> \
     </div>'
     })
