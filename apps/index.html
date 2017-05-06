@@ -34,7 +34,7 @@
     <script type="text/javascript">
     Vue.component('app-item', {
       props: ['app'],
-      template: '<div class="row" style="height: 116px; border-bottom:1px solid lightgray; "> \
+      template: '<div class="row"><div class="col-xs-12" style="min-height: 116px; border-bottom:1px solid lightgray;"> \
       <div style="float: left; height: 72px; width: 72px;margin:12px 0px 0px 12px;"> \
         <img style="" v-bind:src="app.icon"> \
           <p style="width:72px; font-size: 10pt;color: black;margin-top: 4px; text-align: center;">{{ app.name }}</p> \
@@ -50,7 +50,7 @@
         <p><a v-if="app.android != null" style="border-color: #0076ff; color: #0076ff;" \
           v-bind:href="app.android.url" class="btn btn-default btn-xs" role="button">安卓下载</a></p> \
       </div> \
-    </div>'
+    </div></div>'
     })
     var app = new Vue({
       el: '#app',
