@@ -1,0 +1,1 @@
+android({id:"vpalapp",name:"唯品钱包",version:"2.2.2",date:"2017-05-01 13:24"});
