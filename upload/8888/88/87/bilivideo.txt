@@ -1,0 +1,6 @@
+[Rule]
+DOMAIN-SUFFIX,bilibili.com,DIRECT
+DOMAIN-SUFFIX,bilibili.cn,DIRECT
+DOMAIN-SUFFIX,biliapi.com,DIRECT
+DOMAIN-SUFFIX,bilivideo.com,PROXY
+USER-AGENT,Bilibili Freedoooooom/MarkII,PROXY

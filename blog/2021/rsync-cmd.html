@@ -1,0 +1,360 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ccwangzh的小破站 - rsync同步工具</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ccwangzh">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+    
+    
+
+
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="ccwangzh的小破站" />
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../resources/css/highlightjs-themes/androidstudio.css" />
+    <link rel="stylesheet" href="../../resources/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../resources/css/phlat.css" />
+    <link rel="stylesheet" href="../../resources/css/phlat-custom.css" />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../img/favicon/favicon.png">
+  </head>
+  <body>
+  	
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ccwangzh的小破站</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+    			<li>
+                    <a href=" http://notes.bycun.com">
+                       
+                            <i class="fa fa-home">&nbsp;</i>Home
+                        
+                    </a>
+            	</li>
+    			<li>
+                    <a href=" ../../archive.html">
+                       
+                            <i class="fa fa-archive">&nbsp;</i>Archive
+                        
+                    </a>
+            	</li>
+    			<li>
+                    <a href=" ../../feed.xml">
+                       
+                            <i class="fa fa-rss">&nbsp;</i>Subscribe
+                        
+                    </a>
+            	</li>
+    			<li>
+                    <a href=" ../../resources/html/aria2.html">
+                       
+                            <i class="fa fa-cloud-download">&nbsp;</i>Aria2
+                        
+                    </a>
+            	</li>
+    			<li>
+                    <a href=" ../../webdav">
+                       
+                            <i class="fa fa-cloud-upload">&nbsp;</i>WebDAV
+                        
+                    </a>
+            	</li>
+            </ul>
+        </div>
+    </div>
+</nav>  	
+  
+	
+	<div id="top" class="container">
+		<div class="row" id="content-main">
+		    <div class="col-md-8">
+<div class="row">
+    <div class="col-md-12 content-card">
+        <h1>rsync同步工具</h1>
+            
+            <ul class="list-inline meta">
+                <li><i class="fa fa-calendar"></i>一月, 21 2021</li>
+                <li><i class="fa fa-user"></i>ccwangzh</li>
+	            	<li><i class="fa fa-tag"></i><a href="/tags/blog.html">blog</a></li>
+            </ul>
+
+       <p>rsync命令是一个远程数据同步工具，可通过LAN/WAN快速同步多台主机间的文件。rsync使用所谓的“rsync算法”来使本地和远程两个主机之间的文件达到同步，这个算法只传送两个文件的不同部分，而不是每次都整份传送，因此速度相当快。</p>
+<ul>
+<li>rsync功能
+<ul>
+<li>作为命令，实现本地-远程文件同步</li>
+<li>作为服务，实现本地-远程文件同步</li>
+</ul>
+</li>
+<li>rsync特点
+<ul>
+<li>可以镜像保存整个目录树和文件系统</li>
+<li>可以保留原有的权限(permission,mode)，owner,group,时间(修改时间,modify time)，软硬链接，文件acl,文件属性(attributes)信息等</li>
+<li>传输效率高，使用同步算法，只比较变化的</li>
+<li>支持匿名传输，方便网站镜像；也可以做验证，加强安全</li>
+</ul>
+</li>
+<li>rsync同类服务
+<ul>
+<li>sync 同步：刷新文件系统缓存，强制将修改过的数据块写入磁盘，并且更新超级块。</li>
+<li>async 异步：将数据先放到缓冲区，再周期性（一般是30s）的去同步到磁盘。</li>
+<li>rsync 远程同步：remote synchronous</li>
+</ul>
+</li>
+</ul>
+<h4>rsync -av /etc/passwd /tmp/1.txt</h4>
+<p><img src="/upload/2021/01/21/1.jpg" alt="" /></p>
+<h4>rsync -av /tmp/1.txt 192.168.36.131:/tmp/2.txt</h4>
+<p><img src="/upload/2021/01/21/2.jpg" alt="" /></p>
+<p><img src="/upload/2021/01/21/3.jpg" alt="" /></p>
+<h3>rsync格式</h3>
+<pre><code class="language-shell">rsync [OPTION] … SRC   DEST
+rsync [OPTION] … SRC   [user@]host:DEST
+rsync [OPTION] … [user@]host:SRC   DEST
+rsync [OPTION] … SRC   [user@]host::DEST
+rsync [OPTION] … [user@]host::SRC   DEST
+</code></pre>
+<h3>rsync常用选项</h3>
+<pre><code class="language-shell">-a 包含-rtplgoD
+-r 同步目录时要加上，类似cp时的-r选项
+-v 同步时显示一些信息，让我们知道同步的过程
+-l 保留软连接
+-L 加上该选项后，同步软链接时会把源文件给同步
+-p 保持文件的权限属性
+-o 保持文件的属主
+-g 保持文件的属组
+-D 保持设备文件信息
+-t 保持文件的时间属性
+--delete 删除DEST中SRC没有的文件
+--exclude 过滤指定文件，如--exclude “logs”会把文件名包含logs的文件或者目录过滤掉，不同步
+-P 显示同步过程，比如速率，比-v更加详细
+-u 加上该选项后，如果DEST中的文件比SRC新，则不同步
+-z 传输时压缩
+</code></pre>
+<h3>rsync通过ssh方式同步</h3>
+<p>推文件：</p>
+<p><img src="/upload/2021/01/21/4.jpg" alt="" /></p>
+<p>拉文件：</p>
+<p><img src="/upload/2021/01/21/5.jpg" alt="" /></p>
+<p>-e &quot;ssh -p 22&quot; 指定端口：</p>
+<p><img src="/upload/2021/01/21/6.jpg" alt="" /></p>
+<h3>rsync 通过服务的方式同步</h3>
+<pre><code class="language-bash">1.编辑配置文件/etc/rsyncd.conf
+2.启动服务rsync --daemon
+3.格式：rsync -av test1/ test@192.168.36.130::test/
+</code></pre>
+<h6>rsyncd.conf样例：</h6>
+<pre><code>port=873
+log file=/var/log/rsync.log
+pid file=/var/run/rsyncd.pid
+address=192.168.36.130
+[test]
+path=/tmp/rsync
+use chroot=true
+max connections=4
+read only=no
+list=true
+uid=root
+gid=root
+auth users=test
+secrets file=/etc/rsyncd.passwd
+hosts allow=192.168.36.131 （多个ip以空格隔开，也可以写ip段：192.168.36.0/24）
+</code></pre>
+<h6>rsyncd.conf配置文件详解</h6>
+<pre><code>port：指定在哪个端口启动rsyncd服务，默认是873端口。
+log file：指定日志文件。
+pid file：指定pid文件，这个文件的作用涉及服务的启动、停止等进程管理操作。
+address：指定启动rsyncd服务的IP。假如你的机器有多个IP，就可以指定由其中一个启动rsyncd服务，如果不指定该参数，默认是在全部IP上启动。
+[]：指定模块名，里面内容自定义。
+path：指定数据存放的路径。
+use chroot true|false：表示在传输文件前首先chroot到path参数所指定的目录下。这样做的原因是实现额外的安全防护，但缺点是需要以roots权限，并且不能备份指向外部的符号连接所指向的目录文件。默认情况下chroot值为true，如果你的数据当中有软连接文件，阿铭建议你设置成false。
+max connections：指定最大的连接数，默认是0，即没有限制。
+read only ture|false：如果为true，则不能上传到该模块指定的路径下。
+list：表示当用户查询该服务器上的可用模块时，该模块是否被列出，设定为true则列出，false则隐藏。
+uid/gid：指定传输文件时以哪个用户/组的身份传输。
+auth users：指定传输时要使用的用户名。
+secrets file：指定密码文件，该参数连同上面的参数如果不指定，则不使用密码验证。注意该密码文件的权限一定要是600。格式：用户名:密码
+hosts allow：表示被允许连接该模块的主机，可以是IP或者网段，如果是多个，中间用空格隔开。 
+当设置了auth users和secrets file后，客户端连服务端也需要用用户名密码了，若想在命令行中带上密码，可以设定一个密码文件
+rsync -avL test@192.168.36.130::test/test1/  /tmp/test8/ --password-file=/etc/pass 
+其中/etc/pass内容就是一个密码，权限要改为600
+</code></pre>
+<p>把端口改了之后需要使用--port 指定端口</p>
+<p><img src="/upload/2021/01/21/7.jpg" alt="" /></p>
+<p><img src="/upload/2021/01/21/8.jpg" alt="" /></p>
+<p>客服端配置密码文件可不用输入密码：</p>
+<p>这里密码文件格式只有密码</p>
+<p><img src="/upload/2021/01/21/9.jpg" alt="" /></p>
+
+       
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+        	
+            <div class="col-md-4" style="text-align: left; padding-left: 0px">
+            	            </div>
+            
+            <div class="col-md-4 col-md-offset-4" style="text-align: right; padding-right: 0px">
+		        <a href="../../blog/2021/hbase-operate.html" 
+		                class=" btn btn-default"  role="button" style="border-radius: 0px; display: block">HBase操作命令简介 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </a>
+            </div>
+        </div>
+    </div>
+</div>		    </div>
+	        <div class="col-md-4">
+<div class="row">
+    <div class="col-md-11 col-md-offset-1 card">
+        <h5>Search</h5>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+            <div class="input-group">
+                <input class="form-control" type="search" name="q" />
+                <span class="input-group-btn">
+                    <button class="btn btn-custom" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+            <input type="hidden" name="q" value="site:http://notes.bycun.com">
+        </form>
+    </div>
+</div>
+<div class="row">
+	<div class="col-md-11 col-md-offset-1 card intro">
+		<div class="logo">
+			<a href="about.html"><img src="http://notes.bycun.com/resources/img/main/icon.png" 
+			alt="ccwangzh's blog"
+				class="img-responsive img-circle" style="margin: 0 auto;"></a>
+		</div>
+		<br>
+		<div class="col-md-12 text-center">
+			<div class="header">
+				<a href="about.html">ccwangzh's blog</a>
+			</div>
+			<div class="summary">
+				<p>Talk is cheap. Show me the code.</p>
+<div class='demopadding'>
+	
+			<div class='icon social gh'><a href="//github.com/ccwangzh" target="_blank" title="Github"><i class="fa fa-github"></i></a></div>
+		<div class='icon social wx'><a href="//wechat.com/ccwangzh" target="_blank" title="Wechat"><i class="fa fa-weixin"></i></a></div>
+		<div class='icon social wb'><a href="//weibo.com/ccwangzh" target="_blank" title="Weibo"><i class="fa fa-weibo"></i></a></div>
+		<div class='icon social tw'><a target="_blank" href="//twitter.com/ccwangzh"><i class="fa fa-twitter"></i></a></div>
+	
+	
+		<div class='icon social'><a href="mailto:ccwangzh@sina.com" target="_blank" title="E-mail"><i class="fa fa-envelope"></i></a></div>
+
+	
+</div> 	
+			</div>
+		</div>
+	</div>
+</div><div class="row">
+    <div class="col-md-11 col-md-offset-1 card">
+        <h5>Recent Posts</h5>
+        <ul class="list-unstyled posts-recent">
+                            <li><a href="../../blog/2022/sublime-sftp.html">Windows上Sublime安装SFTP插件</a></li>
+                <li><a href="../../blog/2022/webdav-js-client.html">WebDAV客户端配置</a></li>
+                <li><a href="../../blog/2022/nginx-rebuild.html">Nginx重新编译</a></li>
+                <li><a href="../../blog/2022/aria2c-usage.html">Aria2c使用简介</a></li>
+                <li><a href="../../blog/2021/hbase-operate.html">HBase操作命令简介</a></li>
+        </ul>
+    </div>
+</div>
+	
+        <div class="row">
+            <div class="col-md-11 col-md-offset-1 content-card card">
+                <h5>Tags</h5>
+                <ul class="list-inline tags" style="margin-top: 15px; margin-left: 0px">
+							            	<li style=""><a href="/tags/blog.html">blog</a></li>
+		    	</ul>
+            </div>
+        </div>
+
+	        </div>
+	    </div>
+	</div>
+
+	
+
+	<footer class="footer">
+	    <div class="container">
+	        <div class="row">
+	        	
+<div class="col-md-8 col-xs-6">
+    <ul class="list-inline links">
+       		<li>
+	        <a href=" ../../privacy.html">
+	           
+	                <i class="">&nbsp;</i>Privacy Policy
+	            
+	        </a>
+		</li>
+		<li>
+	        <a href=" ../../about.html">
+	           
+	                <i class="fa fa-user">&nbsp;</i>About Me
+	            
+	        </a>
+		</li>
+    </ul>
+</div>
+	        </div>
+	        <div class="row">
+	            <div class="col-md-12">
+	                <p>
+						&copy; 2021 Powered by <a href="https://jbake.org">JBake</a> Theme by <a href="https://github.com/manikmagar/jbake-phlat-theme">JBake Phlat Theme</a> Ported by <a href="https://twitter.com/manikmagar">Manik Magar</a>.
+	                </p>
+	            </div>
+	        </div>
+	    </div>
+	</footer>
+
+	<div id="back-to-top" class="hidden">
+	    <a href="#top" class="well well-sm" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+	        <i class="glyphicon glyphicon-chevron-up"></i> Back to Top
+	    </a>
+	</div>
+
+	
+
+	<script src="../../resources/js/jquery-2.2.1.min.js"></script>
+	<script src="../../resources/js/bootstrap.min.js"></script>
+	<script src="../../resources/js/highlight.min.js"></script>
+	<script src="../../resources/js/readingTime.js"></script>
+	
+	<script>
+	    if(($(window).height() + 100) < $(document).height()) {
+	        $('#back-to-top').removeClass('hidden').affix({
+	            offset: {
+	                top: 100
+	            }
+	        });
+	    }
+	</script>
+		<!-- This is called by default since this theme uses highlight.js -->
+		<script>hljs.initHighlightingOnLoad();</script>
+		<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+
+  </body>
+</html>

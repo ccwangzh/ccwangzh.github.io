@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>webdav-js</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/dom111/webdav-js/assets/css/style-min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha512-6MXa8B6uaO18Hid6blRMetEIoPqHf7Ux1tnyIQdpt9qI5OACx7C+O3IVTr98vwGnlcg0LOLa02i9Y1HpVhlfiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/monokai-sublime.min.css"/>
+    <style type="text/css">
+        h1 .version { opacity: 0; font-size: 0.8em; font-family: monospace; letter-spacing: -5px; transition: .25s opacity linear; }
+        h1:hover .version { opacity: .3; }
+
+        pre { position: relative; }
+        pre a.btn { display: none; position: absolute; right: 2px; top: 2px; }
+        pre:hover a.btn { display: block; }
+        .no-clipboard pre:hover a.btn { display: none; }
+    </style>
+</head>
+<body>
+<!--
+<div class="container">
+    <section class="parser panel panel-primary">
+        <div class="panel-footer">
+            <aside class="options">
+                <p class="text-center">
+                    <a href="javascript:%5B%22https%3A//cdn.jsdmirror.com/gh/dom111/webdav-js/assets/css/style-min.css%22%2C%22https%3A//cdn.jsdmirror.com/gh/dom111/webdav-js/src/webdav-min.js%22%5D.forEach%28%28function%28e%2Cs%29%7B/css%24/.test%28e%29%3F%28%28s%3Ddocument.createElement%28%22link%22%29%29.href%3De%2Cs.rel%3D%22stylesheet%22%29%3A%28s%3Ddocument.createElement%28%22script%22%29%29.src%3De%2Cdocument.head.appendChild%28s%29%7D%29%29%3B" class="btn btn-primary btn-lg">
+                        Browse WebDAV...
+                    </a>
+                </p>
+            </aside>
+        </div>
+    </section>
+</div>
+-->
+
+<script src="https://cdn.jsdmirror.com/gh/dom111/webdav-js/src/webdav-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha512-iztkobsvnjKfAtTNdHkGVjAYTrrtlC7mGp/54c40wowO7LhURYl3gVzzcEqGl/qKXQltJ2HwMrdLcNUdo+N/RQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+
+    if (Clipboard.isSupported()) {
+        new Clipboard('a.copy');
+    }
+    else {
+        $('body').addClass('no-clipboard');
+    }
+
+    $('a.copy').on('click', function(event) {
+        event.preventDefault();
+    });
+</script>
+</body>
+</html>

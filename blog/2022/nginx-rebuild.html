@@ -1,0 +1,341 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ccwangzh的小破站 - Nginx重新编译</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ccwangzh">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+    
+    
+
+
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="ccwangzh的小破站" />
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../resources/css/highlightjs-themes/androidstudio.css" />
+    <link rel="stylesheet" href="../../resources/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../resources/css/phlat.css" />
+    <link rel="stylesheet" href="../../resources/css/phlat-custom.css" />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../img/favicon/favicon.png">
+  </head>
+  <body>
+  	
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ccwangzh的小破站</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+    			<li>
+                    <a href=" http://notes.bycun.com">
+                       
+                            <i class="fa fa-home">&nbsp;</i>Home
+                        
+                    </a>
+            	</li>
+    			<li>
+                    <a href=" ../../archive.html">
+                       
+                            <i class="fa fa-archive">&nbsp;</i>Archive
+                        
+                    </a>
+            	</li>
+    			<li>
+                    <a href=" ../../feed.xml">
+                       
+                            <i class="fa fa-rss">&nbsp;</i>Subscribe
+                        
+                    </a>
+            	</li>
+    			<li>
+                    <a href=" ../../resources/html/aria2.html">
+                       
+                            <i class="fa fa-cloud-download">&nbsp;</i>Aria2
+                        
+                    </a>
+            	</li>
+    			<li>
+                    <a href=" ../../webdav">
+                       
+                            <i class="fa fa-cloud-upload">&nbsp;</i>WebDAV
+                        
+                    </a>
+            	</li>
+            </ul>
+        </div>
+    </div>
+</nav>  	
+  
+	
+	<div id="top" class="container">
+		<div class="row" id="content-main">
+		    <div class="col-md-8">
+<div class="row">
+    <div class="col-md-12 content-card">
+        <h1>Nginx重新编译</h1>
+            
+            <ul class="list-inline meta">
+                <li><i class="fa fa-calendar"></i>七月, 19 2022</li>
+                <li><i class="fa fa-user"></i>ccwangzh</li>
+	            	<li><i class="fa fa-tag"></i><a href="/tags/blog.html">blog</a></li>
+            </ul>
+
+       <p>因为默认的nginx没有ngx-dav-ext-module，需要重新编译生成<br />
+下载模块</p>
+<pre><code>cd ~
+wget https://codeload.github.com/arut/nginx-dav-ext-module/zip/master \
+-O nginx-dav-ext-module-master.zip
+unzip nginx-dav-ext-module-master.zip
+</code></pre>
+<p>查看nginx版本与配置</p>
+<pre><code>[root@localhost ~]# nginx -v
+nginx version: nginx/1.16.1
+[root@localhost ~]# nginx -V
+nginx version: nginx/1.16.1
+built by gcc 4.8.5 20150623 (Red Hat 4.8.5-44) (GCC) 
+built with OpenSSL 1.1.1c FIPS  28 May 2019 (running with OpenSSL 1.1.1g FIPS  21 Apr 2020)
+TLS SNI support enabled
+configure arguments: --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib64/nginx/modules \
+--conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
+--http-client-body-temp-path=/var/lib/nginx/tmp/client_body --http-proxy-temp-path=/var/lib/nginx/tmp/proxy \
+--http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi --http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi \
+--http-scgi-temp-path=/var/lib/nginx/tmp/scgi --pid-path=/run/nginx.pid --lock-path=/run/lock/subsys/nginx \
+--user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module --with-http_v2_module \
+--with-http_realip_module --with-stream_ssl_preread_module --with-http_addition_module \
+--with-http_xslt_module=dynamic --with-http_image_filter_module=dynamic --with-http_sub_module \
+--with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module \
+--with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module \
+--with-http_degradation_module --with-http_slice_module --with-http_stub_status_module \
+--with-http_perl_module=dynamic --with-http_auth_request_module --with-mail=dynamic \
+--with-mail_ssl_module --with-pcre --with-pcre-jit --with-stream=dynamic --with-stream_ssl_module \
+--with-google_perftools_module --with-debug \
+--with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -m64 -mtune=generic' \
+--with-ld-opt='-Wl,-z,relro -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -Wl,-E'
+</code></pre>
+<p>备份Nginx</p>
+<pre><code>cd /usr/sbin
+mv nginx nginx.bak
+cd /etc
+cp nginx{,.bak} -rf
+</code></pre>
+<p>安装依赖</p>
+<pre><code>yum -y install redhat-rpm-config
+yum -y install libxml2 libxml2-dev
+yum -y install libxslt-devel
+yum -y install gd gd-devel
+yum -y install perl-devel perl-ExtUtils-Embed
+yum -y install gperftools
+yum -y install gcc pcre-devel
+yum -y install openssl openssl-devel
+</code></pre>
+<p>下载与编译</p>
+<pre><code>cd ~
+wget http://nginx.org/download/nginx-1.16.1.tar.gz -O nginx-1.16.1.tar.gz
+tar -xvzf nginx-1.16.1.tar.gz
+cd nginx-1.16.1
+./configure --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx \
+--modules-path=/usr/lib64/nginx/modules --conf-path=/etc/nginx/nginx.conf \
+--error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log 
+--http-client-body-temp-path=/var/lib/nginx/tmp/client_body \
+--http-proxy-temp-path=/var/lib/nginx/tmp/proxy \
+--http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi \
+--http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi \
+--http-scgi-temp-path=/var/lib/nginx/tmp/scgi \
+--pid-path=/run/nginx.pid --lock-path=/run/lock/subsys/nginx \
+--user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module \
+--with-http_v2_module --with-http_realip_module --with-stream_ssl_preread_module \
+--with-http_addition_module --with-http_xslt_module=dynamic --with-http_image_filter_module=dynamic \
+--with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module \
+--with-http_gunzip_module --with-http_gzip_static_module --with-http_random_index_module \
+--with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module \
+--with-http_perl_module=dynamic --with-http_auth_request_module --with-mail=dynamic --with-mail_ssl_module \
+--with-pcre --with-pcre-jit --with-stream=dynamic --with-stream_ssl_module --with-google_perftools_module --with-debug \
+--with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -m64 -mtune=generic' \
+--with-ld-opt='-Wl,-z,relro -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -Wl,-E' \
+--with-http_dav_module --add-module=/root/nginx-dav-ext-module-master
+make
+cd objs
+./nginx -V
+cp nginx /usr/sbin
+</code></pre>
+<p>如果运行错误需要进行如下处理</p>
+<pre><code>cd /usr/lib64/nginx/modules/
+mv ngx_mail_module.so ngx_mail_module.so.bak
+cp ~/nginx-1.16.1/objs/ngx_mail_module.so ngx_mail_module.so
+mv ngx_stream_module.so ngx_stream_module.so.bak
+cp ~/workspace/nginx-1.16.1/objs/ngx_stream_module.so ngx_stream_module.so
+</code></pre>
+<p>如果没有其他问题那就大功告成啦！</p>
+
+       
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+        	
+            <div class="col-md-4" style="text-align: left; padding-left: 0px">
+            	                <a href="../../blog/2022/aria2c-usage.html" 
+                class="btn btn-default"  role="button" style="border-radius: 0px; display: block"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Aria2c使用简介</a>
+            </div>
+            
+            <div class="col-md-4 col-md-offset-4" style="text-align: right; padding-right: 0px">
+		        <a href="../../blog/2022/webdav-js-client.html" 
+		                class=" btn btn-default"  role="button" style="border-radius: 0px; display: block">WebDAV客户端配置 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </a>
+            </div>
+        </div>
+    </div>
+</div>		    </div>
+	        <div class="col-md-4">
+<div class="row">
+    <div class="col-md-11 col-md-offset-1 card">
+        <h5>Search</h5>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+            <div class="input-group">
+                <input class="form-control" type="search" name="q" />
+                <span class="input-group-btn">
+                    <button class="btn btn-custom" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+            <input type="hidden" name="q" value="site:http://notes.bycun.com">
+        </form>
+    </div>
+</div>
+<div class="row">
+	<div class="col-md-11 col-md-offset-1 card intro">
+		<div class="logo">
+			<a href="about.html"><img src="http://notes.bycun.com/resources/img/main/icon.png" 
+			alt="ccwangzh's blog"
+				class="img-responsive img-circle" style="margin: 0 auto;"></a>
+		</div>
+		<br>
+		<div class="col-md-12 text-center">
+			<div class="header">
+				<a href="about.html">ccwangzh's blog</a>
+			</div>
+			<div class="summary">
+				<p>Talk is cheap. Show me the code.</p>
+<div class='demopadding'>
+	
+			<div class='icon social gh'><a href="//github.com/ccwangzh" target="_blank" title="Github"><i class="fa fa-github"></i></a></div>
+		<div class='icon social wx'><a href="//wechat.com/ccwangzh" target="_blank" title="Wechat"><i class="fa fa-weixin"></i></a></div>
+		<div class='icon social wb'><a href="//weibo.com/ccwangzh" target="_blank" title="Weibo"><i class="fa fa-weibo"></i></a></div>
+		<div class='icon social tw'><a target="_blank" href="//twitter.com/ccwangzh"><i class="fa fa-twitter"></i></a></div>
+	
+	
+		<div class='icon social'><a href="mailto:ccwangzh@sina.com" target="_blank" title="E-mail"><i class="fa fa-envelope"></i></a></div>
+
+	
+</div> 	
+			</div>
+		</div>
+	</div>
+</div><div class="row">
+    <div class="col-md-11 col-md-offset-1 card">
+        <h5>Recent Posts</h5>
+        <ul class="list-unstyled posts-recent">
+                            <li><a href="../../blog/2022/sublime-sftp.html">Windows上Sublime安装SFTP插件</a></li>
+                <li><a href="../../blog/2022/webdav-js-client.html">WebDAV客户端配置</a></li>
+                <li><a href="../../blog/2022/nginx-rebuild.html">Nginx重新编译</a></li>
+                <li><a href="../../blog/2022/aria2c-usage.html">Aria2c使用简介</a></li>
+                <li><a href="../../blog/2021/hbase-operate.html">HBase操作命令简介</a></li>
+        </ul>
+    </div>
+</div>
+	
+        <div class="row">
+            <div class="col-md-11 col-md-offset-1 content-card card">
+                <h5>Tags</h5>
+                <ul class="list-inline tags" style="margin-top: 15px; margin-left: 0px">
+							            	<li style=""><a href="/tags/blog.html">blog</a></li>
+		    	</ul>
+            </div>
+        </div>
+
+	        </div>
+	    </div>
+	</div>
+
+	
+
+	<footer class="footer">
+	    <div class="container">
+	        <div class="row">
+	        	
+<div class="col-md-8 col-xs-6">
+    <ul class="list-inline links">
+       		<li>
+	        <a href=" ../../privacy.html">
+	           
+	                <i class="">&nbsp;</i>Privacy Policy
+	            
+	        </a>
+		</li>
+		<li>
+	        <a href=" ../../about.html">
+	           
+	                <i class="fa fa-user">&nbsp;</i>About Me
+	            
+	        </a>
+		</li>
+    </ul>
+</div>
+	        </div>
+	        <div class="row">
+	            <div class="col-md-12">
+	                <p>
+						&copy; 2021 Powered by <a href="https://jbake.org">JBake</a> Theme by <a href="https://github.com/manikmagar/jbake-phlat-theme">JBake Phlat Theme</a> Ported by <a href="https://twitter.com/manikmagar">Manik Magar</a>.
+	                </p>
+	            </div>
+	        </div>
+	    </div>
+	</footer>
+
+	<div id="back-to-top" class="hidden">
+	    <a href="#top" class="well well-sm" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+	        <i class="glyphicon glyphicon-chevron-up"></i> Back to Top
+	    </a>
+	</div>
+
+	
+
+	<script src="../../resources/js/jquery-2.2.1.min.js"></script>
+	<script src="../../resources/js/bootstrap.min.js"></script>
+	<script src="../../resources/js/highlight.min.js"></script>
+	<script src="../../resources/js/readingTime.js"></script>
+	
+	<script>
+	    if(($(window).height() + 100) < $(document).height()) {
+	        $('#back-to-top').removeClass('hidden').affix({
+	            offset: {
+	                top: 100
+	            }
+	        });
+	    }
+	</script>
+		<!-- This is called by default since this theme uses highlight.js -->
+		<script>hljs.initHighlightingOnLoad();</script>
+		<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+
+  </body>
+</html>
