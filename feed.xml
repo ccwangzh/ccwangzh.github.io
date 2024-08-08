@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ccwangzh的小破站</title>
-    <link>http://notes.bycun.com</link>
-    <atom:link href="http://notes.bycun.com/feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://fab.us.kg</link>
+    <atom:link href="https://fab.us.kg/feed.xml" rel="self" type="application/rss+xml" />
     <description>记录生活、分享技术</description>
     <language>en-US</language>
-    <pubDate>星期三, 10 七月 2024 11:05:51 +0800</pubDate>
-    <lastBuildDate>星期三, 10 七月 2024 11:05:51 +0800</lastBuildDate>
+    <pubDate>星期四, 8 八月 2024 15:58:54 +0800</pubDate>
+    <lastBuildDate>星期四, 8 八月 2024 15:58:54 +0800</lastBuildDate>
 
     <item>
       <title>Windows上Sublime安装SFTP插件</title>
-      <link>http://notes.bycun.com/blog/2022/sublime-sftp.html</link>
+      <link>https://fab.us.kg/blog/2022/sublime-sftp.html</link>
       <pubDate>星期三, 24 八月 2022 00:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2022/sublime-sftp.html</guid>
       	<description>
@@ -23,13 +23,14 @@
 3、右键点击新建的文件夹，选择Map to Remote，会自动生成配置文件。&lt;br /&gt;
 4、编辑配置文件，配置你自己的服务器信息。&lt;/p&gt;
 &lt;p&gt;其实做完这些步骤就可以了，但是在我Windows上却依然不行。下面就分析下与到问题以及是怎么解决的。&lt;br /&gt;
-点击同步文件夹时提示ssh连接不上，&lt;/p&gt;
+点击同步文件夹时提示ssh连接不上。&lt;/p&gt;
+&lt;p&gt;未完待续。。。&lt;/p&gt;
 
 	</description>
     </item>
     <item>
       <title>WebDAV客户端配置</title>
-      <link>http://notes.bycun.com/blog/2022/webdav-js-client.html</link>
+      <link>https://fab.us.kg/blog/2022/webdav-js-client.html</link>
       <pubDate>星期二, 19 七月 2022 00:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2022/webdav-js-client.html</guid>
       	<description>
@@ -174,7 +175,7 @@
     </item>
     <item>
       <title>Nginx重新编译</title>
-      <link>http://notes.bycun.com/blog/2022/nginx-rebuild.html</link>
+      <link>https://fab.us.kg/blog/2022/nginx-rebuild.html</link>
       <pubDate>星期二, 19 七月 2022 00:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2022/nginx-rebuild.html</guid>
       	<description>
@@ -269,7 +270,7 @@ cp ~/workspace/nginx-1.16.1/objs/ngx_stream_module.so ngx_stream_module.so
     </item>
     <item>
       <title>Aria2c使用简介</title>
-      <link>http://notes.bycun.com/blog/2022/aria2c-usage.html</link>
+      <link>https://fab.us.kg/blog/2022/aria2c-usage.html</link>
       <pubDate>星期二, 19 七月 2022 00:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2022/aria2c-usage.html</guid>
       	<description>
@@ -377,7 +378,7 @@ journalctl -xe # 查看启动信息
     </item>
     <item>
       <title>HBase操作命令简介</title>
-      <link>http://notes.bycun.com/blog/2021/hbase-operate.html</link>
+      <link>https://fab.us.kg/blog/2021/hbase-operate.html</link>
       <pubDate>星期五, 5 二月 2021 00:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2021/hbase-operate.html</guid>
       	<description>
@@ -415,7 +416,7 @@ journalctl -xe # 查看启动信息
     </item>
     <item>
       <title>rsync同步工具</title>
-      <link>http://notes.bycun.com/blog/2021/rsync-cmd.html</link>
+      <link>https://fab.us.kg/blog/2021/rsync-cmd.html</link>
       <pubDate>星期四, 21 一月 2021 00:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2021/rsync-cmd.html</guid>
       	<description>
