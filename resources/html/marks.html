@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个性化主页</title>
+    <link rel="stylesheet" href="../css/marks.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>我的主页</h1>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="搜索...">
+                <button id="searchButton"><i class="fas fa-search"></i></button>
+            </div>
+        </header>
+
+        <main>
+            <section class="quick-links">
+                <h2>快捷链接</h2>
+                <div class="quick-links-grid" id="quickLinksGrid">
+                    <!-- 快捷链接将通过JavaScript动态生成 -->
+                </div>
+            </section>
+
+            <section class="bookmarks-section">
+                <div class="section-header">
+                    <h2>我的书签</h2>
+                    <button id="addBookmark" class="add-button"><i class="fas fa-plus"></i> 添加书签</button>
+                </div>
+                <div class="bookmarks-container" id="bookmarksContainer">
+                    <!-- 书签将通过JavaScript动态生成 -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 添加书签的模态框 -->
+    <div id="bookmarkModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>添加新书签</h2>
+            <form id="bookmarkForm">
+                <div class="form-group">
+                    <label for="bookmarkTitle">标题</label>
+                    <input type="text" id="bookmarkTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookmarkCategory">分类</label>
+                    <select id="bookmarkCategory" required>
+                        <option value="normal">普通书签</option>
+                        <option value="custom">定制书签</option>
+                    </select>
+                </div>
+                <div class="form-group url-group">
+                    <label for="bookmarkUrl">URL</label>
+                    <input type="url" id="bookmarkUrl">
+                </div>
+                <div class="form-group content-group" style="display: none;">
+                    <label for="bookmarkContent">JavaScript代码</label>
+                    <textarea id="bookmarkContent" rows="5" placeholder="请输入JavaScript代码..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="bookmarkColor">颜色</label>
+                    <input type="color" id="bookmarkColor" value="#3498db">
+                </div>
+                <button type="submit" class="submit-button">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/marks.js"></script>
+</body>
+</html>

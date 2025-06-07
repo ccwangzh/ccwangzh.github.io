@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>ccwangzh的小破站 - Nginx重新编译</title>
+    <title>ccwangzh的小破站 - 《老骥伏枥》之JAVA HttpClient</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="ccwangzh">
@@ -84,100 +84,94 @@
 		    <div class="col-md-8">
 <div class="row">
     <div class="col-md-12 content-card">
-        <h1>Nginx重新编译</h1>
+        <h1>《老骥伏枥》之JAVA HttpClient</h1>
             
             <ul class="list-inline meta">
-                <li><i class="fa fa-calendar"></i>七月, 19 2022</li>
+                <li><i class="fa fa-calendar"></i>八月, 16 2024</li>
                 <li><i class="fa fa-user"></i>ccwangzh</li>
 	            	<li><i class="fa fa-tag"></i><a href="/tags/blog.html">blog</a></li>
             </ul>
 
-       <p>因为默认的nginx没有ngx-dav-ext-module，需要重新编译生成<br />
-下载模块</p>
-<pre><code>cd ~
-wget https://codeload.github.com/arut/nginx-dav-ext-module/zip/master \
--O nginx-dav-ext-module-master.zip
-unzip nginx-dav-ext-module-master.zip
+       <p>由于公司项目需要，将老项目中使用HttpURLConnection的地方全部替换成HttpClient。</p>
+<h2>为什么要替换</h2>
+<p>HttpURLConnection在使用上比较简单，但是在实际使用中，很多时候会遇到一些问题，这并不是我们升级的主要原因<br />
+主要原因是不支持traceId的传递，HttpClient是支持的，我们要将使用HttpURLConnection的地方全部替换成HttpClient。</p>
+<h2>什么是HttpClient</h2>
+<p>Java语言中的HttpClient类库是Apache HttpComponents中的一个模块，它提供了高效的、最新的、功能丰富的支持HTTP协议的客户端编程工具。HttpClient可以让开发者通过HTTP协议与其它应用程序进行通信，实现数据的发送和接收。</p>
+<p>HttpClient的主要特点：</p>
+<p>支持HTTP协议最新的版本，如HTTP/1.1和HTTP/2。<br />
+支持URI模板。<br />
+支持HTTP请求和响应的分块编码。<br />
+支持HTTP协议中的各种认证机制，如Basic认证、Digest认证等。<br />
+支持代理服务器。<br />
+支持HTTP协议中的压缩编码，如gzip、deflate等。<br />
+支持HTTP协议中的SSL/TLS安全套接层。<br />
+HttpClient的使用方法：</p>
+<p>首先需要在项目中添加HttpClient的依赖。如果使用Maven，可以在pom.xml文件中添加以下依赖：</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+    &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+    &lt;version&gt;4.5.2&lt;/version&gt;
+&lt;/dependency&gt;
 </code></pre>
-<p>查看nginx版本与配置</p>
-<pre><code>[root@localhost ~]# nginx -v
-nginx version: nginx/1.16.1
-[root@localhost ~]# nginx -V
-nginx version: nginx/1.16.1
-built by gcc 4.8.5 20150623 (Red Hat 4.8.5-44) (GCC) 
-built with OpenSSL 1.1.1c FIPS  28 May 2019 (running with OpenSSL 1.1.1g FIPS  21 Apr 2020)
-TLS SNI support enabled
-configure arguments: --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib64/nginx/modules \
---conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
---http-client-body-temp-path=/var/lib/nginx/tmp/client_body --http-proxy-temp-path=/var/lib/nginx/tmp/proxy \
---http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi --http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi \
---http-scgi-temp-path=/var/lib/nginx/tmp/scgi --pid-path=/run/nginx.pid --lock-path=/run/lock/subsys/nginx \
---user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module --with-http_v2_module \
---with-http_realip_module --with-stream_ssl_preread_module --with-http_addition_module \
---with-http_xslt_module=dynamic --with-http_image_filter_module=dynamic --with-http_sub_module \
---with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module \
---with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module \
---with-http_degradation_module --with-http_slice_module --with-http_stub_status_module \
---with-http_perl_module=dynamic --with-http_auth_request_module --with-mail=dynamic \
---with-mail_ssl_module --with-pcre --with-pcre-jit --with-stream=dynamic --with-stream_ssl_module \
---with-google_perftools_module --with-debug \
---with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -m64 -mtune=generic' \
---with-ld-opt='-Wl,-z,relro -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -Wl,-E'
+<p>然后可以使用HttpClient进行HTTP请求。以下是一个简单的GET请求的示例：</p>
+<pre><code>import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+public class HttpClientExample {
+    public static void main(String[] args) throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(&quot;http://httpbin.org/get&quot;);
+        CloseableHttpResponse response = httpclient.execute(httpGet);
+        try {
+            System.out.println(response.getStatusLine());
+            System.out.println(EntityUtils.toString(response.getEntity()));
+        } finally {
+            response.close();
+        }
+    }
+}
 </code></pre>
-<p>备份Nginx</p>
-<pre><code>cd /usr/sbin
-mv nginx nginx.bak
-cd /etc
-cp nginx{,.bak} -rf
-</code></pre>
-<p>安装依赖</p>
-<pre><code>yum -y install redhat-rpm-config
-yum -y install libxml2 libxml2-dev
-yum -y install libxslt-devel
-yum -y install gd gd-devel
-yum -y install perl-devel perl-ExtUtils-Embed
-yum -y install gperftools
-yum -y install gcc pcre-devel
-yum -y install openssl openssl-devel
-</code></pre>
-<p>下载与编译</p>
-<pre><code>cd ~
-wget http://nginx.org/download/nginx-1.16.1.tar.gz -O nginx-1.16.1.tar.gz
-tar -xvzf nginx-1.16.1.tar.gz
-cd nginx-1.16.1
-./configure --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx \
---modules-path=/usr/lib64/nginx/modules --conf-path=/etc/nginx/nginx.conf \
---error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log 
---http-client-body-temp-path=/var/lib/nginx/tmp/client_body \
---http-proxy-temp-path=/var/lib/nginx/tmp/proxy \
---http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi \
---http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi \
---http-scgi-temp-path=/var/lib/nginx/tmp/scgi \
---pid-path=/run/nginx.pid --lock-path=/run/lock/subsys/nginx \
---user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module \
---with-http_v2_module --with-http_realip_module --with-stream_ssl_preread_module \
---with-http_addition_module --with-http_xslt_module=dynamic --with-http_image_filter_module=dynamic \
---with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module \
---with-http_gunzip_module --with-http_gzip_static_module --with-http_random_index_module \
---with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module \
---with-http_perl_module=dynamic --with-http_auth_request_module --with-mail=dynamic --with-mail_ssl_module \
---with-pcre --with-pcre-jit --with-stream=dynamic --with-stream_ssl_module --with-google_perftools_module --with-debug \
---with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -m64 -mtune=generic' \
---with-ld-opt='-Wl,-z,relro -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -Wl,-E' \
---with-http_dav_module --add-module=/root/nginx-dav-ext-module-master
-make
-cd objs
-./nginx -V
-cp nginx /usr/sbin
-</code></pre>
-<p>如果运行错误需要进行如下处理</p>
-<pre><code>cd /usr/lib64/nginx/modules/
-mv ngx_mail_module.so ngx_mail_module.so.bak
-cp ~/nginx-1.16.1/objs/ngx_mail_module.so ngx_mail_module.so
-mv ngx_stream_module.so ngx_stream_module.so.bak
-cp ~/workspace/nginx-1.16.1/objs/ngx_stream_module.so ngx_stream_module.so
-</code></pre>
-<p>如果没有其他问题那就大功告成啦！</p>
+<p>这个示例中，首先创建了一个HttpClient实例，然后创建了一个HttpGet请求，并使用HttpClient实例的execute方法执行了这个请求。最后，打印了响应的状态码和内容。</p>
+<p>这只是HttpClient的一个简单示例，但是在生产环境中不能这么使用，需要做一些额外的处理。</p>
+<h2>如何使用HttpClient</h2>
+<h3>创建HttpClient实例</h3>
+<p>在使用HttpClient发送HTTP请求之前，首先需要创建一个HttpClient实例。</p>
+<p>HttpClient有多种创建方式，这里介绍最常用的几种方式。</p>
+<h4>1. 使用HttpClients工具类</h4>
+<p>HttpClients是HttpClient的一个工具类，提供了一些静态方法用于创建HttpClient实例。</p>
+<p>HttpClients类提供了以下几种创建HttpClient实例的方法：</p>
+<p>HttpClients.createDefault()：创建一个默认的HttpClient实例。<br />
+HttpClients.createMinimal()：创建一个最小功能的HttpClient实例。<br />
+HttpClients.createSystem()：创建一个系统属性配置的HttpClient实例。<br />
+HttpClients.custom()：创建一个HttpClientBuilder实例，通过它可以定制HttpClient。</p>
+<h4>2. 使用HttpClientBuilder</h4>
+<p>HttpClientBuilder是HttpClient的一个构建器，通过它可以定制HttpClient。</p>
+<p>HttpClientBuilder类提供了以下几种创建HttpClient实例的方法：</p>
+<p>build()：创建一个HttpClient实例。<br />
+create()：创建一个HttpClientBuilder实例。<br />
+HttpClientBuilder提供了以下几种定制HttpClient的方法：</p>
+<p>setConnectionManager(HttpClientConnectionManager connManager)：设置连接管理器。<br />
+setDefaultRequestConfig(RequestConfig config)：设置默认的请求配置。<br />
+setRetryHandler(HttpRequestRetryHandler retryHandler)：设置重试处理器。<br />
+HttpClientBuilder提供了以下几种定制连接池的方法：</p>
+<p>setMaxConnPerRoute(int maxConnPerRoute)：设置路由的最大连接数。<br />
+setMaxConnTotal(int maxConnTotal)：设置最大连接数。<br />
+setConnectionTimeToLive(TimeValue timeToLive, TimeUnit timeUnit)：设置连接存活时间。<br />
+evictExpiredConnections()：定期清除过期的连接。<br />
+evictIdleConnections(long maxIdleTime, TimeUnit timeUnit)：定期清除指定时间内空闲的连接。<br />
+setConnectionManagerShared(boolean shared)：设置连接管理器是否共享。<br />
+setConnectionManager(HttpClientConnectionManager connManager)：设置连接管理器。<br />
+HttpClientBuilder提供了以下几种定制请求重试的方法：</p>
+<p>setRetryHandler(HttpRequestRetryHandler retryHandler)：设置重试处理器。<br />
+HttpClientBuilder提供了以下几种定制连接池的方法：</p>
+<p>setKeepAliveStrategy(ConnectionKeepAliveStrategy keepAliveStrategy)：设置连接保持策略。<br />
+setConnectionReuseStrategy(ConnectionReuseStrategy reuseStrategy)：设置连接重用策略。<br />
+HttpClientBuilder提供了以下几种定制SSL安全连接的方法：</p>
+<p>setSSLSocketFactory(SSLSocketFactory socketFactory)：设置SSL套接字工厂。</p>
 
        
     </div>
@@ -188,13 +182,11 @@ cp ~/workspace/nginx-1.16.1/objs/ngx_stream_module.so ngx_stream_module.so
         <div class="row">
         	
             <div class="col-md-4" style="text-align: left; padding-left: 0px">
-            	                <a href="../../blog/2022/aria2c-usage.html" 
-                class="btn btn-default"  role="button" style="border-radius: 0px; display: block"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Aria2c使用简介</a>
+            	                <a href="../../blog/2022/sublime-sftp.html" 
+                class="btn btn-default"  role="button" style="border-radius: 0px; display: block"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Windows上Sublime安装SFTP插件</a>
             </div>
             
             <div class="col-md-4 col-md-offset-4" style="text-align: right; padding-right: 0px">
-		        <a href="../../blog/2022/webdav-js-client.html" 
-		                class=" btn btn-default"  role="button" style="border-radius: 0px; display: block">WebDAV客户端配置 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </a>
             </div>
         </div>
     </div>
